@@ -63,14 +63,23 @@ states.orderBy('population', 'desc').toObject();
 // Returns { CA: 'California', TX: 'Texas', NY: 'New York', ... }
 ```
 
+Exclude states by name or abbreviation:
+
+```javascript
+states.exclude('Arizona', 'AR').toObject();
+states.exclude(['Arizona', 'AR']).toObject(); // Also accepts arrays
+
+// Returns { AL: 'Alabama', AK: 'Alaska', CA: 'California', ... }
+```
+
 Chain the above methods:
 
 ```javascript
-/* Get all contiguous states with less than 1,000,000 citizens and retrieve an array with population included, ordered by population */
+/* Get all contiguous states (except Wyoming) with less than 1,000,000 citizens and retrieve an array with population included, ordered by population */
 
-states.filter(function(state) {
+states.contiguous().exclude('WY').filter(function(state) {
     return (state.population < 1000000);
-}).contiguous().orderBy('population', 'asc').toArray('population');
+}).orderBy('population', 'asc').toArray('population');
 
 // Returns [ { name: 'Wyoming', abbreviation: 'WY', population: 582658 }, { name: 'Vermont', abbreviation: 'VT', population: 626630 }, { name: 'Washington, DC', abbreviation: 'DC', population: 646449 }, ... ]
 ```
