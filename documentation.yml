@@ -1,0 +1,11 @@
+toc:
+  - name: Fifty States
+    description: |
+      Lightweight module for filtering, sorting, reordering, and abbreviating the 50 United States and D.C.
+      ### Initialization:
+      ```javascript
+      const fifty = require('fifty-states');
+      const states = fifty.states();
+      ```
+  - Fifty
+  - StatesCollection
