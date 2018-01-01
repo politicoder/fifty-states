@@ -576,6 +576,22 @@ StatesCollection.prototype.addDataset = function(name, dataset) {
     return this;
 }
 
+StatesCollection.prototype.getData = function(state, key) {
+    state = (function() {
+        return state;
+        if (state.length > 2) {
+            return abbreviate(state);
+        }
+        return state.toUpperCase();
+    }());
+    for (let i = 0; i < this.states.length; i++) {
+        if (this.states[i].abbreviation == state && this.states[i][key] != undefined) {
+            return this.states[i][key];
+        }
+    }
+    return null;
+}
+
 
 /**
  * Abbreviates the full name of a state to its two-character postal abbreviation.
