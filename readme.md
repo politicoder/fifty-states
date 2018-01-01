@@ -109,7 +109,7 @@ Currently, available data sets are:
 
 If you don't care about any of the above and are just looking for a name/abbreviation JSON object, [states.json](states.json) is also included:
 
-```json
+```javascript
 {
     "AL": "Alabama",
     "AK": "Alaska",
@@ -118,6 +118,7 @@ If you don't care about any of the above and are just looking for a name/abbrevi
     "CA": "California",
     "CO": "Colorado",
     "CT": "Connecticut",
+    "DC": "Washington, DC",
     "DE": "Delaware",
     "FL": "Florida",
     "GA": "Georgia",
@@ -158,7 +159,6 @@ If you don't care about any of the above and are just looking for a name/abbrevi
     "VT": "Vermont",
     "VA": "Virginia",
     "WA": "Washington",
-    "DC": "Washington, DC",
     "WV": "West Virginia",
     "WI": "Wisconsin",
     "WY": "Wyoming"

@@ -17,6 +17,7 @@ let StatesCollection = function() {
     this.states = data;
 }
 
+
 /**
  * Gets a new StatesCollection instance with the default dataset.
  * @memberof Fifty
@@ -27,17 +28,15 @@ module.exports.states = function() {
     return new StatesCollection();
 }
 
-function objectToArray(obj) {
-    let output = [];
-    for (let key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            output.push(obj[key]);
-        }
-    }
-    return output;
-}
 
-
+/**
+ * Get an object representing the current StatesCollection in { abbreviation: name } format
+ * @memberof StatesCollection.prototype
+ * @instance
+ * @example
+ * fifty.states().toObject();
+ * // Returns { AL: 'Alabama', AK: 'Alaska', ... }
+ */
 
 StatesCollection.prototype.toObject = function() {
     let output = {};
@@ -47,11 +46,12 @@ StatesCollection.prototype.toObject = function() {
     return output;
 }
 
+
 /**
  * Get an array of state objects including whatever extra data you need. Includes name and abbreviation by default.
  * @memberof StatesCollection.prototype
  * @instance
- * @param {...string} bits The data keys needed in addition to name and abbreviation.
+ * @param {...string} [bits] - The data keys needed in addition to name and abbreviation.
  * @example
  * fifty.states().toArray('population', 'size');
  * // Returns [{ name: 'Alabama', abbreviation: 'AL', population: 4833722, size: 52420 }, { name: 'Alaska', abbreviation: 'AK', population: 735132, size: 665384 }, ... ]
@@ -76,10 +76,27 @@ StatesCollection.prototype.toArray = function(bits) {
     });
 }
 
-StatesCollection.prototype.filter = function(callback) {
-    this.states = this.states.filter(callback);
+
+/**
+ * Pass a function that accepts a state object and returns true/false to filter the current StatesCollection.
+ * @memberof StatesCollection.prototype
+ * @instance
+ * @param {function} filterFunction - Your filter
+ * @example
+ * // Get all states that end with "O"
+ * states.filter(function(state) {
+ *     let letters = state.name.split('');
+ *     let lastCharacter = letters[letters.length - 1];
+ *     return (lastCharacter === 'o');
+ * }).toObject();
+ * // Returns { CO: 'Colorado', ID: 'Idaho', NM: 'New Mexico', OH: 'Ohio' }
+ */
+
+StatesCollection.prototype.filter = function(filterFunction) {
+    this.states = this.states.filter(filterFunction);
     return this;
 }
+
 
 /**
  * Exclude states by name or abbreviation.
@@ -94,14 +111,12 @@ StatesCollection.prototype.filter = function(callback) {
  */
 
 StatesCollection.prototype.exclude = function(excluded) {
-
     let args;
     if (Array.isArray(arguments[0])) {
         args = arguments[0];
     } else {
         args = objectToArray(arguments);
     }
-
     args = args.map(function(input) {
         if (input.length > 2) {
             return abbreviate(input);
@@ -119,12 +134,12 @@ StatesCollection.prototype.exclude = function(excluded) {
  * Orders the StatesCollection by the given data key, in the given order.
  * @memberof StatesCollection.prototype
  * @instance
- * @param {string} key data key
- * @param {string} order data order ('asc' or 'desc')
+ * @param {string} key - Data key
+ * @param {string} order - Data order ('asc' or 'desc')
  * @example
  * // Returns { CA: 'California', TX: 'Texas', NY: 'New York', ... }
  * fifty.states().orderBy('population', 'desc').toObject();
- * @returns {StatesCollection} StatesCollection instance in the desired order.
+ * @returns {StatesCollection} - StatesCollection instance in the desired order.
  */
 
 StatesCollection.prototype.orderBy = function(key, order) {
@@ -144,7 +159,7 @@ StatesCollection.prototype.orderBy = function(key, order) {
  * // myStates.toObject() == { AL: 'Alabama', AZ: 'Arizona', AR: 'Arkansas', ... }
  * myStates.reset().toObject();
  * // Returns { AL: 'Alabama', AK: 'Alaska', AZ: 'Arizona', ... }
- * @returns {StatesCollection} StatesCollection instance with all changes reset
+ * @returns {StatesCollection} - StatesCollection instance with all changes reset
  */
 
 StatesCollection.prototype.reset = function() {
@@ -160,7 +175,7 @@ StatesCollection.prototype.reset = function() {
  * @example
  * // Returns { AL: 'Alabama', AZ: 'Arizona', AR: 'Arkansas', ... }
  * fifty.states().contiguous().toObject();
- * @returns {StatesCollection} StatesCollection instance with non-contiguous states removed
+ * @returns {StatesCollection} - StatesCollection instance with non-contiguous states removed
  */
 
 StatesCollection.prototype.contiguous = function() {
@@ -178,6 +193,19 @@ StatesCollection.prototype.addDataset = function(name, dataset) {
     return this;
 }
 
+
+/**
+ * Gets an object representing the requested state
+ * @memberof StatesCollection.prototype
+ * @instance
+ * @param {string} stateName - The state's abbreviation or full name
+ * @returns {Object} - Object representing the state
+ * @example
+ * fifty.states().getState('NY');
+ * fifty.states().getState('New York');
+ * // Both return { name: 'New York', abbreviation: 'NY', ap: 'N.Y.', capital: 'Albany', population: 19651127, size: 54555 }
+ */
+
 StatesCollection.prototype.getState = function(stateName) {
     stateName = alwaysAbbreviation(stateName);
     for (let i = 0; i < this.states.length; i++) {
@@ -188,20 +216,13 @@ StatesCollection.prototype.getState = function(stateName) {
     return null;
 }
 
-function alwaysAbbreviation(stateName) {
-    if (stateName.length > 2) {
-        return abbreviate(stateName);
-    }
-    return stateName.toUpperCase();
-}
-
 
 /**
  * Abbreviates the full name of a state to its two-character postal abbreviation.
  * @memberof Fifty
  * @example
- * // returns "WA"
  * fifty.abbreviate('Washington');
+ * // returns "WA"
  * @param {string} name state name
  * @returns {string} that state, abbreviated
  */
@@ -220,8 +241,8 @@ function abbreviate(name) {
  * Unabbreviates a two-character postal abbreviation to a full state name.
  * @memberof Fifty
  * @example
- * // returns "Texas"
  * fifty.unabbreviate('TX');
+ * // returns "Texas"
  * @param {string} abbr state abbreviation
  * @returns {string} that state, unabbreviated
  */
@@ -237,3 +258,30 @@ function unabbreviate(abbr) {
 
 module.exports.abbreviate = abbreviate;
 module.exports.unabbreviate = unabbreviate;
+
+
+/**
+ * @private
+ */
+
+function objectToArray(obj) {
+    let output = [];
+    for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            output.push(obj[key]);
+        }
+    }
+    return output;
+}
+
+
+/**
+ * @private
+ */
+
+function alwaysAbbreviation(stateName) {
+    if (stateName.length > 2) {
+        return abbreviate(stateName);
+    }
+    return stateName.toUpperCase();
+}

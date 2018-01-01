@@ -8,11 +8,14 @@
     -   [abbreviate](#abbreviate)
     -   [unabbreviate](#unabbreviate)
 -   [StatesCollection](#statescollection)
+    -   [toObject](#toobject)
     -   [toArray](#toarray)
+    -   [filter](#filter)
     -   [exclude](#exclude)
     -   [orderBy](#orderby)
     -   [reset](#reset)
     -   [contiguous](#contiguous)
+    -   [getState](#getstate)
 
 ## Fifty States
 
@@ -51,8 +54,8 @@ Abbreviates the full name of a state to its two-character postal abbreviation.
 **Examples**
 
 ```javascript
-// returns "WA"
 fifty.abbreviate('Washington');
+// returns "WA"
 ```
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** that state, abbreviated
@@ -68,8 +71,8 @@ Unabbreviates a two-character postal abbreviation to a full state name.
 **Examples**
 
 ```javascript
-// returns "Texas"
 fifty.unabbreviate('TX');
+// returns "Texas"
 ```
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** that state, unabbreviated
@@ -78,19 +81,50 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Object containing the current states.
 
+### toObject
+
+Get an object representing the current StatesCollection in { abbreviation: name } format
+
+**Examples**
+
+```javascript
+fifty.states().toObject();
+// Returns { AL: 'Alabama', AK: 'Alaska', ... }
+```
+
 ### toArray
 
 Get an array of state objects including whatever extra data you need. Includes name and abbreviation by default.
 
 **Parameters**
 
--   `bits` **...[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The data keys needed in addition to name and abbreviation.
+-   `bits` **...[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** The data keys needed in addition to name and abbreviation.
 
 **Examples**
 
 ```javascript
 fifty.states().toArray('population', 'size');
 // Returns [{ name: 'Alabama', abbreviation: 'AL', population: 4833722, size: 52420 }, { name: 'Alaska', abbreviation: 'AK', population: 735132, size: 665384 }, ... ]
+```
+
+### filter
+
+Pass a function that accepts a state object and returns true/false to filter the current StatesCollection.
+
+**Parameters**
+
+-   `filterFunction` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Your filter
+
+**Examples**
+
+```javascript
+// Get all states that end with "O"
+states.filter(function(state) {
+    let letters = state.name.split('');
+    let lastCharacter = letters[letters.length - 1];
+    return (lastCharacter === 'o');
+}).toObject();
+// Returns { CO: 'Colorado', ID: 'Idaho', NM: 'New Mexico', OH: 'Ohio' }
 ```
 
 ### exclude
@@ -115,8 +149,8 @@ Orders the StatesCollection by the given data key, in the given order.
 
 **Parameters**
 
--   `key` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** data key
--   `order` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** data order ('asc' or 'desc')
+-   `key` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Data key
+-   `order` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Data order ('asc' or 'desc')
 
 **Examples**
 
@@ -154,3 +188,21 @@ fifty.states().contiguous().toObject();
 ```
 
 Returns **[StatesCollection](#statescollection)** StatesCollection instance with non-contiguous states removed
+
+### getState
+
+Gets an object representing the requested state
+
+**Parameters**
+
+-   `stateName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The state's abbreviation or full name
+
+**Examples**
+
+```javascript
+fifty.states().getState('NY');
+fifty.states().getState('New York');
+// Both return { name: 'New York', abbreviation: 'NY', ap: 'N.Y.', capital: 'Albany', population: 19651127, size: 54555 }
+```
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Object representing the state
