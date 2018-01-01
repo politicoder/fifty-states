@@ -1,4 +1,4 @@
-# Fifty States
+# Fifty States :statue_of_liberty:
 
 Lightweight module for filtering, sorting, reordering, and abbreviating the 50 United States and D.C.
 

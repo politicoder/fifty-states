@@ -4,8 +4,8 @@ toc:
       Lightweight module for filtering, sorting, reordering, and abbreviating the 50 United States and D.C.
       ### Initialization:
       ```javascript
-      const fifty = require('fifty-states');
-      const states = fifty.states();
+      const fifty = require('fifty-states'); // Instance of Fifty
+      const states = fifty.states(); // Instance of StatesCollection
       ```
   - Fifty
   - StatesCollection

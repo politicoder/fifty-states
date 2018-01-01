@@ -8,6 +8,7 @@
     -   [abbreviate](#abbreviate)
     -   [unabbreviate](#unabbreviate)
 -   [StatesCollection](#statescollection)
+    -   [toArray](#toarray)
     -   [exclude](#exclude)
     -   [orderBy](#orderby)
     -   [reset](#reset)
@@ -20,8 +21,8 @@ Lightweight module for filtering, sorting, reordering, and abbreviating the 50 U
 ### Initialization:
 
 ```javascript
-const fifty = require('fifty-states');
-const states = fifty.states();
+const fifty = require('fifty-states'); // Instance of Fifty
+const states = fifty.states(); // Instance of StatesCollection
 ```
 
 
@@ -76,6 +77,21 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 ## StatesCollection
 
 Object containing the current states.
+
+### toArray
+
+Get an array of state objects including whatever extra data you need. Includes name and abbreviation by default.
+
+**Parameters**
+
+-   `bits` **...[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The data keys needed in addition to name and abbreviation.
+
+**Examples**
+
+```javascript
+fifty.states().toArray('population', 'size');
+// Returns [{ name: 'Alabama', abbreviation: 'AL', population: 4833722, size: 52420 }, { name: 'Alaska', abbreviation: 'AK', population: 735132, size: 665384 }, ... ]
+```
 
 ### exclude
 

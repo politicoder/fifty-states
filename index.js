@@ -47,7 +47,17 @@ StatesCollection.prototype.toObject = function() {
     return output;
 }
 
-StatesCollection.prototype.toArray = function() {
+/**
+ * Get an array of state objects including whatever extra data you need. Includes name and abbreviation by default.
+ * @memberof StatesCollection.prototype
+ * @instance
+ * @param {...string} bits The data keys needed in addition to name and abbreviation.
+ * @example
+ * fifty.states().toArray('population', 'size');
+ * // Returns [{ name: 'Alabama', abbreviation: 'AL', population: 4833722, size: 52420 }, { name: 'Alaska', abbreviation: 'AK', population: 735132, size: 665384 }, ... ]
+ */
+
+StatesCollection.prototype.toArray = function(bits) {
     let args = objectToArray(arguments);
     return this.states.map(function(state) {
         let entry = {
