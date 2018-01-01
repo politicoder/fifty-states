@@ -1,12 +1,11 @@
 {
   "name": "fifty-states",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Filters, sorts, and orders states of the United States.",
   "main": "index.js",
-  "author": "Lee Moran",
+  "author": "Lee Michael Moran",
   "license": "ISC",
   "dependencies": {
-    "lodash.filter": "^4.6.0",
     "lodash.orderby": "^4.6.0"
   }
 }

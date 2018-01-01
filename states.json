@@ -6,6 +6,7 @@
     "CA": "California",
     "CO": "Colorado",
     "CT": "Connecticut",
+    "DC": "Washington, DC",
     "DE": "Delaware",
     "FL": "Florida",
     "GA": "Georgia",
@@ -46,7 +47,6 @@
     "VT": "Vermont",
     "VA": "Virginia",
     "WA": "Washington",
-    "DC": "Washington, DC",
     "WV": "West Virginia",
     "WI": "Wisconsin",
     "WY": "Wyoming"
