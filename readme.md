@@ -96,7 +96,7 @@ fifty.abbreviate('Washington'); // Returns "WA"
 fifty.unabbreviate('TX'); // Returns "Texas"
 ```
 
-View the [complete documentation here](documentation.md).
+View the [documentation in progress here](documentation.md).
 
 Currently, available data sets are:
 

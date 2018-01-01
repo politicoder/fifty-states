@@ -5,6 +5,7 @@
   "main": "index.js",
   "author": "Lee Michael Moran",
   "license": "ISC",
+  "repository": "github:politicoder/fifty-states",
   "dependencies": {
     "lodash.orderby": "^4.6.0"
   }
