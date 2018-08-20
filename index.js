@@ -1,3 +1,5 @@
+'use strict';
+
 const orderBy = require('lodash.orderby');
 const data = require('./data.js').states;
 
