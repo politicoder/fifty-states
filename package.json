@@ -1,6 +1,6 @@
 {
   "name": "fifty-states",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Filters, sorts, and orders states of the United States.",
   "main": "index.js",
   "author": "Lee Michael Moran",
