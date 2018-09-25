@@ -1,7 +1,7 @@
 'use strict';
 
-const orderBy = require('lodash.orderby');
-const data = require('./data.js').states;
+var orderBy = require('lodash.orderby');
+var data = require('./data.js').states;
 
 /**
  * @module Fifty
@@ -42,7 +42,7 @@ module.exports.states = function() {
 
 StatesCollection.prototype.toObject = function() {
     let output = {};
-    for (let i = 0; i < this.states.length; i++) {
+    for (var i = 0; i < this.states.length; i++) {
         output[this.states[i].abbreviation] = this.states[i].name;
     }
     return output;
@@ -60,14 +60,14 @@ StatesCollection.prototype.toObject = function() {
  */
 
 StatesCollection.prototype.toArray = function(bits) {
-    let args = objectToArray(arguments);
+    var args = objectToArray(arguments);
     return this.states.map(function(state) {
-        let entry = {
+        var entry = {
             name: state.name,
             abbreviation: state.abbreviation
         };
-        for (let a = 0; a < args.length; a++) {
-            let key = args[a];
+        for (var a = 0; a < args.length; a++) {
+            var key = args[a];
             if (state[key] != undefined) {
                 entry[key] = state[key];
             } else {
@@ -113,7 +113,7 @@ StatesCollection.prototype.filter = function(filterFunction) {
  */
 
 StatesCollection.prototype.exclude = function(excluded) {
-    let args;
+    var args;
     if (Array.isArray(arguments[0])) {
         args = arguments[0];
     } else {
@@ -185,7 +185,7 @@ StatesCollection.prototype.contiguous = function() {
 }
 
 StatesCollection.prototype.addDataset = function(name, dataset) {
-    for (let i = 0; i < this.states.length; i++) {
+    for (var i = 0; i < this.states.length; i++) {
         if (!dataset.hasOwnProperty(this.states[i].abbreviation)) {
             this.states[i][name] = null;
             continue;
@@ -210,7 +210,7 @@ StatesCollection.prototype.addDataset = function(name, dataset) {
 
 StatesCollection.prototype.getState = function(stateName) {
     stateName = alwaysAbbreviation(stateName);
-    for (let i = 0; i < this.states.length; i++) {
+    for (var i = 0; i < this.states.length; i++) {
         if (this.states[i].abbreviation == stateName) {
             return this.states[i];
         }
@@ -230,7 +230,7 @@ StatesCollection.prototype.getState = function(stateName) {
  */
 
 function abbreviate(name) {
-    for (let i = 0; i < data.length; i++) {
+    for (var i = 0; i < data.length; i++) {
         if (data[i].name.toLowerCase() == name.toLowerCase()) {
             return data[i].abbreviation;
         }
@@ -250,7 +250,7 @@ function abbreviate(name) {
  */
 
 function unabbreviate(abbr) {
-    for (let i = 0; i < data.length; i++) {
+    for (var i = 0; i < data.length; i++) {
         if (data[i].abbreviation.toLowerCase() == abbr.toLowerCase()) {
             return data[i].name;
         }
@@ -267,8 +267,8 @@ module.exports.unabbreviate = unabbreviate;
  */
 
 function objectToArray(obj) {
-    let output = [];
-    for (let key in obj) {
+    var output = [];
+    for (var key in obj) {
         if (obj.hasOwnProperty(key)) {
             output.push(obj[key]);
         }
