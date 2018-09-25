@@ -15,7 +15,7 @@ var data = require('./data.js').states;
  * Object containing the current states.
  */
 
-let StatesCollection = function() {
+var StatesCollection = function() {
     this.states = data;
 }
 
@@ -41,7 +41,7 @@ module.exports.states = function() {
  */
 
 StatesCollection.prototype.toObject = function() {
-    let output = {};
+    var output = {};
     for (var i = 0; i < this.states.length; i++) {
         output[this.states[i].abbreviation] = this.states[i].name;
     }
